@@ -53,11 +53,6 @@ elif '10' in limit:
 # 免费试用订阅每个区域的vCPU总数为4，与标准FSv2系列的vCPUs相同
 # 因此创建1个Standard_F4s_v2实例（共占用4个vCPUs）
 elif '4' in limit:
-    print("当前订阅为免费试用，每个区域的配额仅为4 vCPUs，建议升级后再用。"
-          "若升级后仍看到本消息，请等待十分钟再运行脚本。")
-    selection = input("输入Y继续运行，任意键退出")
-    if selection != "Y" or "y":
-        exit(0)
     size1_name = "Standard_F4s_v2"
     size1_abbreviation = "F4s_v2"
     size1_count = 1
