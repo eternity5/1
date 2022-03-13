@@ -5,8 +5,8 @@ from contextlib import redirect_stdout
 from azure.cli.core import get_default_cli
 
 # 初始化区域列表，共36个区域
-locations = ['australiacentral', 'australiaeast', 'australiasoutheast', 'brazilsouth', 'canadacentral',
-             'canadaeast', 'centralindia', 'centralus', 'eastasia', 'eastus', 'eastus2', 'francecentral',
+locations = ['australiacentral', 'australiaeast', 'brazilsouth', 'canadacentral',
+             'canadaeast', 'centralindia', 'centralus', 'eastasia', 'eastus', 'eastus2',
              'germanywestcentral', 'japaneast', 'japanwest', 'jioindiawest', 'koreacentral', 'koreasouth',
              'northcentralus', 'northeurope', 'norwayeast', 'southafricanorth', 'southcentralus',
              'southeastasia', 'southindia', 'swedencentral', 'switzerlandnorth', 'uaenorth', 'uksouth',
@@ -26,9 +26,7 @@ with open("./cloud-init.txt", "w") as f:
     f.write(f"  - {init}")
 
 
-vm_sizes = ['Standard_D4as_v5', 'Standard_D4s_v5', 'Standard_D4ds_v5',
-           'Standard_D4as_v4', 'Standard_D4s_v4', 'Standard_D4ds_v4',
-           'Standard_F4s_v2', 'Standard_F4s', 'Standard_F4']
+vm_sizes = ['Standard_D4as_v5', 'Standard_D4s_v5','Standard_D4as_v4', 'Standard_D4s_v4','Standard_F4s_v2']
 
 
 
