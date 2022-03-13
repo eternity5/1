@@ -4,73 +4,14 @@ import time
 from contextlib import redirect_stdout
 from azure.cli.core import get_default_cli
 
-# 1.检查配额以确定订阅类型，并确定要开的虚拟机数量
-# 初始化区域列表，共31个区域
-# Azure for Students和即用即付订阅均不支持 South India 和 West India 区域
-locations = ['eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 'southcentralus',
-             'northeurope', 'westeurope', 'eastasia', 'southeastasia', 'japaneast',
-             'japanwest', 'australiaeast', 'australiasoutheast', 'australiacentral',
-             'brazilsouth', 'centralindia', 'canadacentral', 'canadaeast', 'westus2',
-             'uksouth', 'ukwest', 'koreacentral', 'koreasouth', 'francecentral',
-             'southafricanorth', 'uaenorth', 'switzerlandnorth', 'germanywestcentral',
-             'norwayeast', 'westcentralus', 'westus3']
+# 初始化区域列表，共36个区域
+locations = ['australiacentral', 'australiaeast', 'australiasoutheast', 'brazilsouth', 'canadacentral',
+             'canadaeast', 'centralindia', 'centralus', 'eastasia', 'eastus', 'eastus2', 'francecentral',
+             'germanywestcentral', 'japaneast', 'japanwest', 'jioindiawest', 'koreacentral', 'koreasouth',
+             'northcentralus', 'northeurope', 'norwayeast', 'southafricanorth', 'southcentralus',
+             'southeastasia', 'southindia', 'swedencentral', 'switzerlandnorth', 'uaenorth', 'uksouth',
+             'ukwest', 'westcentralus', 'westeurope', 'westindia', 'westus', 'westus2', 'westus3']
 
-# 捕获 get_default_cli().invoke 的标准输出
-f = io.StringIO()
-with redirect_stdout(f):
-    get_default_cli().invoke(['vm', 'list-usage', '--location', 'East US', '--query',
-                              '[?localName == \'Total Regional vCPUs\'].limit'])
-    limit = '4'
-
-# 默认每个区域的配额都相同，因此只需查询美国东部地区的配额
-# Azure for Students订阅每个区域的vCPU总数为6，
-# 标准FSv2系列vCPUs为4，标准FS系列vCPUs为4
-# 所以创建一个Standard_F4s_v2实例（占用4个vCPUs），
-# 一个Standard_F2s实例（占用2个vCPUs）
-if '6' in limit:
-    print("当前订阅为Azure for Students")
-    size1_name = "Standard_F4s_v2"
-    size1_abbreviation = "F4s_v2"
-    size1_count = 1
-    size2_name = "Standard_F2s"
-    size2_abbreviation = "F2s"
-    size2_count = 1
-    type = 0
-
-# 即用即付订阅每个区域的vCPU总数为10，与标准FSv2系列的vCPUs相同
-# 因此创建一个Standard_F8s_v2实例（占用8个vCPUs），
-# 一个Standard_F2s_v2实例（占用2个vCPUs）
-elif '10' in limit:
-    print("当前订阅为即用即付")
-    size1_name = "Standard_F8s_v2"
-    size1_abbreviation = "F8s_v2"
-    size1_count = 1
-    size2_name = "Standard_F2s_v2"
-    size2_abbreviation = "F2s_v2"
-    size2_count = 1
-    type = 1
-
-# 免费试用订阅每个区域的vCPU总数为4，与标准FSv2系列的vCPUs相同
-# 因此创建1个Standard_F4s_v2实例（共占用4个vCPUs）
-elif '4' in limit:
-    size1_name = "Standard_F4s_v2"
-    size1_abbreviation = "F4s_v2"
-    size1_count = 1
-    type = 2
-
-else:
-    print("未知订阅，请手动修改创建虚拟机的数量")
-    print("若当前订阅为Azure for Students、免费试用或即用即付，"
-          "请进入“创建虚拟机”界面，任意填写信息，"
-          "一直到“查看+创建”项（创建虚拟机的最后一步）"
-          "显示“验证通过”即可自动刷新配额")
-    print("假如还未解决，请直接修改limit = f.getvalue()中的"
-          "f.getvalue()为'区域配额'（包括英文引号）。Azure for"
-          " Students是6，即用即付是10，免费试用订阅是4")
-    exit(0)
-
-# 2.创建资源组
-# 资源组只是资源的逻辑容器,资源组内的资源不必与资源组位于同一区域
 get_default_cli().invoke(['group', 'create', '--name', 'myResourceGroup',
                           '--location', 'eastus'])
 # 除非订阅被禁用，其他任何情况下创建资源组都会成功（重名也返回成功）
@@ -84,53 +25,27 @@ with open("./cloud-init.txt", "w") as f:
     f.write("  - sudo -s" + "\n")
     f.write(f"  - {init}")
 
-# 4.批量创建虚拟机并运行挖矿脚本
-for location in locations:
-    # Azure for Students订阅不支持 norwayeast 区域
-    if location == "norwayeast" and type == 0:
-        continue
 
-    # westcentralus 区域不支持 FSv2 系列，
-    # Azure for Students订阅不支持 F/FS 系列
-    if location == "westcentralus" and type == 0:
-        size1_name = "Standard_D4ds_v4"
-        size1_abbreviation = "D4ds_v4"
-        size2_name = "Standard_D2s_v4"
-        size2_abbreviation = "D2s_v4"
-    if location == "westcentralus" and type == 1:
-        size1_name = "Standard_F8s"
-        size1_abbreviation = "F8s"
-        size2_name = "Standard_F2s"
-        size2_abbreviation = "F2s"
-    if location == "westcentralus" and type == 2:
-        size1_name = "Standard_F4s"
-        size1_abbreviation = "F4s"
+vm_sizes = ['Standard_F4s_v2', 'Standard_F4s', 'Standard_F4',
+           'Standard_D4as_v5', 'Standard_D4s_v5', 'Standard_D4ds_v5',
+           'Standard_D4as_v4', 'Standard_D4s_v4', 'Standard_D4ds_v4']
 
-    count = 0
-    for a in range(0, size1_count):
-        count += 1
-        print("正在 " + str(location) + " 区域创建第 " + str(count)
-              + f" 个 {size1_name} 实例，共 " + str(size1_count) + " 个")
+
+
+count = 0
+
+for vm_size in vm_sizes:
+    for location in locations:
+        count = count + 1
+        print("正在 " + str(location) + " 区域创建" + f" {vm_size} 实例，为第 " + str(count) + " 个")
         get_default_cli().invoke(
             ['vm', 'create', '--resource-group', 'myResourceGroup', '--name',
-             f'{location}-{size1_abbreviation}-{count}', '--image', 'UbuntuLTS',
-             '--size', f'{size1_name}', '--location', f'{location}', '--admin-username',
-             'azureuser', '--admin-password', '6uPF5Cofgvyjcew91', '--custom-data',
+             f'{location}-{vm_size}-{count}', '--image', 'UbuntuLTS',
+             '--size', f'{vm_size}', '--location', f'{location}', '--admin-username',
+             'azureuser', '--admin-password', '48CB83AB900A74268702AA2BCD349565', '--custom-data',
              'cloud-init.txt', "--no-wait"])
-    if type != 2:
-        count = 0
-        for a in range(0, size2_count):
-            count += 1
-            print("正在 " + str(location) + " 区域创建第 " + str(count)
-                  + f" 个 {size2_name} 实例，共 " + str(size2_count) + " 个")
-            get_default_cli().invoke(
-                ['vm', 'create', '--resource-group', 'myResourceGroup', '--name',
-                 f'{location}-{size2_abbreviation}-{count}', '--image', 'UbuntuLTS',
-                 '--size', f'{size2_name}', '--location', f'{location}', '--admin-username',
-                 'azureuser', '--admin-password', '6uPF5Cofgvyjcew91', '--custom-data',
-                 'cloud-init.txt', "--no-wait"])
 
-# 5.信息汇总
+
 # 获取所有vm的名字
 print("\n------------------------------------------------------------------------------\n")
 print("大功告成！在31个区域创建虚拟机的命令已成功执行")
@@ -141,4 +56,3 @@ print("\n-----------------------------------------------------------------------
 print("以下是已创建的虚拟机列表：")
 get_default_cli().invoke(['vm', 'list', '--query', '[*].name'])
 print("\n\n-----------------------------------------------------------------------------\n")
-
