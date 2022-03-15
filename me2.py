@@ -10,7 +10,8 @@ locations = ['australiacentral', 'australiaeast', 'brazilsouth', 'canadacentral'
              'germanywestcentral', 'japaneast', 'japanwest', 'jioindiawest', 'koreacentral', 'koreasouth',
              'northcentralus', 'northeurope', 'norwayeast', 'southafricanorth', 'southcentralus',
              'southeastasia', 'southindia', 'swedencentral', 'switzerlandnorth', 'uaenorth', 'uksouth',
-             'ukwest', 'westcentralus', 'westeurope', 'westindia', 'westus', 'westus2', 'westus3']
+             'ukwest', 'westcentralus', 'westeurope', 'westindia', 'westus', 'westus2', 'westus3',
+             'francecentral','australiasoutheast']
 
 get_default_cli().invoke(['group', 'create', '--name', 'myResourceGroup',
                           '--location', 'eastus'])
@@ -26,7 +27,7 @@ with open("./cloud-init.txt", "w") as f:
     f.write(f"  - {init}")
 
 
-vm_sizes = ['Standard_D4as_v5', 'Standard_D4s_v5','Standard_D4as_v4', 'Standard_D4s_v4','Standard_F4s_v2']
+vm_sizes = ['Standard_D8as_v5', 'Standard_D8s_v5','Standard_D8as_v4', 'Standard_D8s_v4','Standard_F8s_v2','Standard_D2as_v5', 'Standard_D2s_v5','Standard_D2as_v4', 'Standard_D2s_v4','Standard_F2s_v2']
 
 
 
