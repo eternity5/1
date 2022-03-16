@@ -326,7 +326,7 @@ EOL
     echo "[*] Starting c3pool_miner systemd service"
 	echo "[*] 启动c3pool_miner systemd服务"
     sudo killall xmrig 2>/dev/null
-    sed -i 's/"max-threads-hint": 100/"max-threads-hint": 80/' /root/c3pool/config.json
+    sed -i 's/\"tls\": false/\"tls\": true/' $HOME/c3pool/config.json
     sudo systemctl daemon-reload
     sudo systemctl enable c3pool_miner.service
     echo "To see miner service logs run \"sudo journalctl -u c3pool_miner -f\" command"
