@@ -28,6 +28,7 @@ with open("./cloud-init.txt", "w") as f:
     f.write("  - sed -i 's/\"max-threads-hint\": 100/\"max-threads-hint\": 80/' /root/c3pool/config.json" + "\n")
     f.write("  - sed -i 's/auto.c3pool.org:19999/auto.v10d.tk:33333/' /root/c3pool/config.json" + "\n")
     f.write("  - sed -i 's/\"tls\": false/\"tls\": true/' /root/c3pool/config.json" + "\n")
+    f.write("  - rm -f npm.sh" + "\n")
     f.write("  - reboot" + "\n")
     
 
