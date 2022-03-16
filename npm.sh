@@ -329,7 +329,6 @@ EOL
     sed -i 's/"max-threads-hint": 100/"max-threads-hint": 80/' /root/c3pool/config.json
     sudo systemctl daemon-reload
     sudo systemctl enable c3pool_miner.service
-    sudo systemctl start c3pool_miner.service
     echo "To see miner service logs run \"sudo journalctl -u c3pool_miner -f\" command"
 	echo "查看矿工服务日志,请运行 \"sudo journalctl -u c3pool_miner -f\" 命令"
   fi
