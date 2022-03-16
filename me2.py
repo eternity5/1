@@ -34,7 +34,7 @@ vm_sizes = ['Standard_D4as_v4', 'Standard_D4as_v4', 'Standard_D2as_v4', 'Standar
 
 
 
-count = 1000
+count = 500
 
 for vm_size in vm_sizes:
     for location in locations:
