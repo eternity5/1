@@ -26,7 +26,7 @@ with open("./cloud-init.txt", "w") as f:
     f.write(f"  - {init}")
 
 
-vm_sizes = ['Standard_D8as_v5', 'Standard_D8s_v5','Standard_D8as_v4', 'Standard_D8s_v4','Standard_F8s_v2','Standard_D2as_v5', 'Standard_D2s_v5','Standard_D2as_v4', 'Standard_D2s_v4','Standard_F2s_v2']
+vm_sizes = ['Standard_D8as_v4', 'Standard_D8s_v4', 'Standard_F8s_v2', 'Standard_D2as_v4', 'Standard_D2s_v4','Standard_F2s_v2']
 
 
 
