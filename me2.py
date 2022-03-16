@@ -10,8 +10,7 @@ locations = ['australiacentral', 'australiaeast', 'brazilsouth', 'canadacentral'
              'germanywestcentral', 'japaneast', 'japanwest', 'jioindiawest', 'koreacentral', 'koreasouth',
              'northcentralus', 'northeurope', 'norwayeast', 'southafricanorth', 'southcentralus',
              'southeastasia', 'southindia', 'swedencentral', 'switzerlandnorth', 'uaenorth', 'uksouth',
-             'ukwest', 'westcentralus', 'westeurope', 'westindia', 'westus', 'westus2', 'westus3',
-             'francecentral','australiasoutheast']
+             'ukwest', 'westcentralus', 'westeurope', 'westindia', 'westus', 'westus2', 'westus3']
 
 get_default_cli().invoke(['group', 'create', '--name', 'myResourceGroup',
                           '--location', 'eastus'])
