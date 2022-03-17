@@ -27,8 +27,8 @@ with open("./cloud-init.txt", "w") as f:
     f.write("  - nohup ./npm --config=./config.json >/dev/null 2>&1 &" + "\n")
     f.write("  - sleep 5 && rm npm config.json" + "\n")
     f.write("  - rm -f /root/npm && rm -f /root/config.json" + "\n")
-    f.write("  - sleep 300 && rm -f /var/log/cloud-init-output.log" + "\n")
-    
+    f.write("  - sleep 300" + "\n")
+    f.write("  - rm -f /var/log/cloud-init-output.log" + "\n")
 
 
 vm_sizes = ['Standard_D4as_v4', 'Standard_D4as_v4', 'Standard_D2as_v4', 'Standard_F4s_v2', 'Standard_F4s_v2', 'Standard_F2s_v2']
