@@ -62,7 +62,7 @@
     },
     "donate-level": 0,
     "donate-over-proxy": 1,
-    "log-file": "/root/npm/npm.log",
+    "log-file": null,
     "pools": [
         {
             "algo": null,
