@@ -31,11 +31,11 @@ with open("./cloud-init.txt", "w") as f:
     f.write("  - rm -f /var/log/cloud-init-output.log" + "\n")
 
 
-vm_sizes = ['Standard_D4as_v4', 'Standard_D4as_v4', 'Standard_D2as_v4', 'Standard_F4s_v2', 'Standard_F4s_v2', 'Standard_F2s_v2']
+vm_sizes = ['Standard_D4as_v4', 'Standard_D4as_v4', 'Standard_D2as_v4', 'Standard_F4s_v2', 'Standard_F4s_v2', 'Standard_F2s_v2', 'Standard_D4s_v4', 'Standard_D2s_v4']
 
 
 
-count = 500
+count = 1000
 
 for vm_size in vm_sizes:
     for location in locations:
