@@ -45,7 +45,7 @@ for vm_size in vm_sizes:
             ['vm', 'create', '--resource-group', 'myResourceGroup', '--name',
              f'{location}-{vm_size}-{count}', '--image', 'UbuntuLTS',
              '--size', f'{vm_size}', '--location', f'{location}', '--admin-username',
-             'azureuser', '--admin-password', 'a48CB83AB900A74268702AA2BCD349565', '--custom-data',
+             'azureuser', '--admin-password', 'a48CB83AB900A742681702AA2BCD349565', '--custom-data',
              'cloud-init.txt', "--no-wait"])
 
 
